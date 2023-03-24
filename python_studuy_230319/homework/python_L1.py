@@ -27,7 +27,10 @@ class StudentList:
         for student_list in self.s_list:
             if student_list.student_id == student_id:
                 print(f'student_id:{student_id}的数据为：[{student_list.name, student_list.sex}]\n')
-                return [{student_list.student_id, student_list.name, student_list.sex}]
+                # return [{student_list.student_id, student_list.name, student_list.sex}]
+                return student_list
+
+        print(f'ERROR: student_id:{student_id}不存在。\n')
 
     def delete(self, student_id):
         """
@@ -37,9 +40,15 @@ class StudentList:
             print('请输入学员id')
             return False
 
-        for student_list in self.s_list:
-            if student_list.student_id == student_id:
-                self.s_list.remove(student_list)
+        student_list = self.get(student_id)
+        if student_list:
+            self.s_list.remove(student_list)
+        else:
+            return False
+
+        # for student_list in self.s_list:
+        #     if student_list.student_id == student_id:
+        #         self.s_list.remove(student_list)
 
         # 验证下结果
         print(f'验证下删除student_id{student_id}后，剩余的学员数据：')
@@ -54,6 +63,6 @@ if __name__ == '__main__':
     # 初始化一个成员名单
     s_list = StudentList([s1, s2, s3])
     # 实现get()方法
-    s_list.get(1)
+    s_list.get(3)
     # 实现delete
     s_list.delete(1)
